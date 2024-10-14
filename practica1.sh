@@ -6,6 +6,25 @@
 	b=$(wc -l < temporal2.csv)
 	numerror=$((a-b))
 	awk -F',' '{ if ($8 < 1000000) {print $0 ",Bo"} else if ($8 <= 10000000) {print $0 ",Excel·lent"} else{print $0 ",Estrella"}}' temporal2.csv >> temporal3.csv
+	awk -F',' '{print $0 ","$9*100/$8}' temporal3.csv >> temporal4.csv
+	awk -F',' '{print $0 ","$10*100/$8}' temporal4.csv >> temporal5.csv
+	cont=0
+	while $cont<$b; do
+		read x;
+		likes=echo$x | cut -d',' -f9;
+		dislikes=echo$x | cut -d',' -f10;
+		views=echo$x | cut -d',' -f8;
+		echo ","$likes*100/views temporal3.csv >> temporal4.csv;
+		echo ","$likes*100/views temporal4.csv >> temporal5.csv;
+	cont=$cont+1
+	done < temporal3.csv
+	id=$($1)
+	if (grep -w "^$id" temporal5.csv); then
+		x=True
+	else
+		echo "No s'ha trbat cap coincidència."
+	fi
 fi
+
 
 
