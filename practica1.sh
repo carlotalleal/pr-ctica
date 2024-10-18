@@ -27,14 +27,10 @@
 #Punt 5
 	if ["$#" -eq 1]; then
 		id=$1
-		sortida=$(grep -w "^$id" sortida.csv)
-		if (grep -n "^$sortida"); then
+		if (grep -w "^$id" sortida.csv); then
 			echo "$id" | cut -d ',' -f3,6,8,9,10,15,16,17
 		else
 			echo "No s'ha trobat cap coincidència."
 		fi
 	fi
 fi
-
-
-
